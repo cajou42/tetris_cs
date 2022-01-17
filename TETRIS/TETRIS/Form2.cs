@@ -38,6 +38,9 @@ namespace TETRIS
 
             //Bitmap alu = new Bitmap(Filename, true);
             //alu.Save(Filename);
+
+            pictureBox1.Width = 15 * 20;
+            pictureBox1.Height = 20 * 20;
         }
 
         private void label1_Click(object sender, EventArgs e)
