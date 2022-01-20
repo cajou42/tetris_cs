@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\creationTetrimino.cs" />
+    <Compile Include="Tetrimino.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

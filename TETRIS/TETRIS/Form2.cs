@@ -41,6 +41,7 @@ namespace TETRIS
 
             pictureBox1.Width = 15 * 20;
             pictureBox1.Height = 20 * 20;
+            int[,] area = new int [15, 20];
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -57,12 +58,14 @@ namespace TETRIS
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
+            //horizontale
             Graphics graph = e.Graphics;
             for (int i = 0; i < 20; i++)
             {
                 graph.DrawLine(blackPen, 0, i * 25, 64 * 25, i * 25);
             }
 
+            //verticale
             for (int x = 0; x < 12; ++x)
             {
                 graph.DrawLine(blackPen, x * 25, 0, x * 25, 64 * 25);
