@@ -9,7 +9,10 @@ namespace TETRIS
     class creationTetrimino : Tetrimino
     {
         private static Tetrimino[] arr;
-        
+        private int fallTick = 0;
+        int currentX;
+        int currentY;
+
         public creationTetrimino()
         {
             arr = new Tetrimino[]
@@ -103,7 +106,21 @@ namespace TETRIS
             };
         } //end of constructor
 
-        public void fall(int timer)
+        public Tetrimino randomShape()
+        {
+           var rand = new Random();
+            int choose = rand.Next(0, 6);
+            return arr[choose];
+        }
+
+        public Tetrimino appear(Tetrimino T)
+        {
+            currentX = 7;
+            currentY = -T.height;
+            return T;
+        }
+
+        public void fall(int timer, Tetrimino T)
         {
             //speed increases with time
         }
