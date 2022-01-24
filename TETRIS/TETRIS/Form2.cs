@@ -82,6 +82,13 @@ namespace TETRIS
             //}
         }
         
+        private bool move()
+        {
+            Tetrimino T = game.randomShape();
+            
+        }
+
+
         private void draw()
         {
             Tetrimino T = game.randomShape();
@@ -100,7 +107,6 @@ namespace TETRIS
             }
             pictureBox1.Image = baseImage;
         }
-
 
     }
 }
