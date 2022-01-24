@@ -45,7 +45,7 @@ namespace TETRIS
 
                 new Tetrimino {
                     width = 3,
-                    height = 3,
+                    height = 2,
                     name = "s",
                     shape = new int[,]
 
@@ -57,7 +57,7 @@ namespace TETRIS
 
                 new Tetrimino {
                     width = 3,
-                    height = 3,
+                    height = 2,
                     name = "z",
                     shape = new int[,]
 
@@ -69,7 +69,7 @@ namespace TETRIS
 
                 new Tetrimino {
                     width = 3,
-                    height = 3,
+                    height = 2,
                     name = "l",
                     shape = new int[,]
 
@@ -81,7 +81,7 @@ namespace TETRIS
 
                 new Tetrimino {
                     width = 3,
-                    height = 3,
+                    height = 2,
                     name = "j",
                     shape = new int[,]
 
@@ -93,7 +93,7 @@ namespace TETRIS
 
                 new Tetrimino {
                     width = 3,
-                    height = 3,
+                    height = 2,
                     name = "t",
                     shape = new int[,]
 
