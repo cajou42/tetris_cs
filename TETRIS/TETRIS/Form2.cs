@@ -15,6 +15,7 @@ namespace TETRIS
     {
         private const string Filename = @"C:\Users\louis\Desktop\Tetris_cs\TETRIS\TETRIS\image\Nice bro.png";
         private int _tick;
+        private int fallingTick;
         Pen blackPen = new Pen(Color.Black, 3);
         private static creationTetrimino game = new creationTetrimino();
         private Graphics graph;
@@ -22,6 +23,8 @@ namespace TETRIS
         private Bitmap baseImage;
         private Graphics insert;
         private Bitmap piece;
+        private Tetrimino T;
+        private int[,] area;
 
         public Form2()
         {
@@ -32,27 +35,16 @@ namespace TETRIS
 
             label1.Text = "0 sec";
 
-            //for(int i = 0; i <= 6; i++)
-            //{
-            //    //ici il faudra probablement faire une double boucle for
-            //    DataGridViewRow row = (DataGridViewRow)dataGridView1.Rows[0].Clone();
-            //    row.Cells[i].Value = "alu";
-            //    dataGridView1.Rows.Add(row);
 
-            //}
-
-            //Bitmap alu = new Bitmap(Filename, true);
-            //alu.Save(Filename);
-
-
-
-            pictureBox1.Width = 15 * 20;
+            pictureBox1.Width = 325;
             pictureBox1.Height = 20 * 20;
             baseImage = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             bases = Graphics.FromImage(baseImage);
             pictureBox1.Image = baseImage;
-            int[,] area = new int [15, 20];
-            draw();
+            area = new int [13, 20];
+            T = game.randomShape();
+            fallingTimer.Interval = 800;
+            fallingTimer.Start();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -68,30 +60,24 @@ namespace TETRIS
         }
         private void pictureBox1_Paint_1(object sender, PaintEventArgs e)
         {
-            ////horizontale
-            //graph = e.Graphics;
-            //for (int i = 0; i < 20; i++)
-            //{
-            //    graph.DrawLine(blackPen, 0, i * 25, 64 * 25, i * 25);
-            //}
+            //horizontale
+            graph = e.Graphics;
+            for (int i = 0; i < 20; i++)
+            {
+                graph.DrawLine(blackPen, 0, i * 25, 64 * 25, i * 25);
+            }
 
-            ////verticale
-            //for (int x = 0; x < 13; ++x)
-            //{
-            //    graph.DrawLine(blackPen, x * 25, 0, x * 25, 64 * 25);
-            //}
+            //verticale
+            for (int x = 0; x < 14; ++x)
+            {
+                graph.DrawLine(blackPen, x * 25, 0, x * 25, 64 * 25);
+            }
         }
         
-        private bool move()
-        {
-            Tetrimino T = game.randomShape();
-            
-        }
 
 
-        private void draw()
+        private Tetrimino draw(Tetrimino T)
         {
-            Tetrimino T = game.randomShape();
             piece = new Bitmap(baseImage);
             insert = Graphics.FromImage(piece);
 
@@ -101,12 +87,63 @@ namespace TETRIS
                 {
                     if(T.shape[j, i] == 1)
                     {
-                        insert.FillRectangle(Brushes.Black, (7 + i) * 25, (-T.height + j) * 25, 25, 25);
+                        insert.FillRectangle(Brushes.Black, (7 + i) * 25, (0 + j) * 25, 25, 25);
                     }
                 }
             }
-            pictureBox1.Image = baseImage;
+            pictureBox1.Image = piece;
+            return T;
         }
 
+        private void insertGrid(Tetrimino T, int lateral = 7, int vertical = 0)
+        {
+            for (int i = 0; i < T.width; i++)
+            {
+                for (int j = 0; j < T.height; j++)
+                {
+                    if (T.shape[j, i] == 1)
+                    {
+                        area[lateral+i,vertical+j] = 1;
+                    }
+                }
+            }
+        }
+
+        private void Form2_KeyDown(object sender, KeyEventArgs e)
+        {
+            insertGrid(T);
+            draw(T);
+            if (e.KeyCode == Keys.Left)
+            {
+                if (T.baseLeft > 0 && area[T.baseLeft--,0] != 1)
+                {
+                    int temp = T.baseLeft - 1; 
+                    insertGrid(T,temp);
+                    draw(T);
+                }
+            }
+            else if(e.KeyCode == Keys.Right)
+            {
+                if (T.baseRight < area.Length && area[T.baseRight++, 0] != 0)
+                {
+                    int temp = T.baseRight - 1;
+                    insertGrid(T, temp);
+                    draw(T);
+                }
+            }
+        }
+        private void gameOver()
+        {
+            
+        }
+
+        private void fallingTimer_Tick(object sender, EventArgs e)
+        {
+            int desc = 0;
+            fallingTick++;
+            desc++;
+            insertGrid(T,7,desc);
+
+        }
     }
 }

@@ -10,6 +10,8 @@ namespace TETRIS
     {
         public int width;
         public int height;
+        public int baseLeft;
+        public int baseRight;
         public int[,] shape;
         public string name;
     }
