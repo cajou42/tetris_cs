@@ -15,8 +15,9 @@ namespace TETRIS
     {
         private const string Filename = @"C:\Users\louis\Desktop\Tetris_cs\TETRIS\TETRIS\image\Nice bro.png";
         private int _tick;
-        private int fallingTick;
         Pen blackPen = new Pen(Color.Black, 3);
+        int canvasWidth = 15;
+        int canvasHeight = 20;
         private static creationTetrimino game = new creationTetrimino();
         private Graphics graph;
         private Graphics bases;
@@ -25,6 +26,8 @@ namespace TETRIS
         private Bitmap piece;
         private Tetrimino T;
         private int[,] area;
+        private int X;
+        private int Y;
 
         public Form2()
         {
@@ -36,14 +39,16 @@ namespace TETRIS
             label1.Text = "0 sec";
 
 
-            pictureBox1.Width = 325;
-            pictureBox1.Height = 20 * 20;
+            pictureBox1.Width = 375;
+            pictureBox1.Height = 500;//canvasHeight * 20;
             baseImage = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             bases = Graphics.FromImage(baseImage);
+            bases.FillRectangle(Brushes.LightGray, 0, 0, baseImage.Width, baseImage.Height);
             pictureBox1.Image = baseImage;
-            area = new int [13, 20];
-            T = game.randomShape();
-            fallingTimer.Interval = 800;
+            area = new int [15, 20];
+            T = arrive();
+            fallingTimer.Tick += fallingTimer_Tick;
+            fallingTimer.Interval = 500;
             fallingTimer.Start();
         }
 
@@ -62,21 +67,27 @@ namespace TETRIS
         {
             //horizontale
             graph = e.Graphics;
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 21; i++)
             {
                 graph.DrawLine(blackPen, 0, i * 25, 64 * 25, i * 25);
             }
 
             //verticale
-            for (int x = 0; x < 14; ++x)
+            for (int x = 0; x < 16; ++x)
             {
                 graph.DrawLine(blackPen, x * 25, 0, x * 25, 64 * 25);
             }
         }
-        
 
+        private Tetrimino arrive()
+        {
+            Tetrimino shape = game.randomShape();
+            X = 7;
+            Y = -shape.height;
+            return shape;
+        }
 
-        private Tetrimino draw(Tetrimino T)
+        private void draw()
         {
             piece = new Bitmap(baseImage);
             insert = Graphics.FromImage(piece);
@@ -87,15 +98,14 @@ namespace TETRIS
                 {
                     if(T.shape[j, i] == 1)
                     {
-                        insert.FillRectangle(Brushes.Black, (7 + i) * 25, (0 + j) * 25, 25, 25);
+                        insert.FillRectangle(Brushes.Black, (X + i) * 25, (Y + j) * 25, 25, 25);
                     }
                 }
             }
             pictureBox1.Image = piece;
-            return T;
         }
 
-        private void insertGrid(Tetrimino T, int lateral = 7, int vertical = 0)
+        private void actualisation()
         {
             for (int i = 0; i < T.width; i++)
             {
@@ -103,7 +113,8 @@ namespace TETRIS
                 {
                     if (T.shape[j, i] == 1)
                     {
-                        area[lateral+i,vertical+j] = 1;
+                        gameOver();
+                        area[X+i,Y+j] = 1;
                     }
                 }
             }
@@ -111,39 +122,82 @@ namespace TETRIS
 
         private void Form2_KeyDown(object sender, KeyEventArgs e)
         {
-            insertGrid(T);
-            draw(T);
+            int vertical = 0;
+            int horizontal = 0;
             if (e.KeyCode == Keys.Left)
             {
-                if (T.baseLeft > 0 && area[T.baseLeft--,0] != 1)
-                {
-                    int temp = T.baseLeft - 1; 
-                    insertGrid(T,temp);
-                    draw(T);
-                }
+                horizontal--;
             }
             else if(e.KeyCode == Keys.Right)
             {
-                if (T.baseRight < area.Length && area[T.baseRight++, 0] != 0)
-                {
-                    int temp = T.baseRight - 1;
-                    insertGrid(T, temp);
-                    draw(T);
-                }
+                horizontal++;
             }
+            else if (e.KeyCode == Keys.Down)
+            {
+                vertical++;
+            }
+            else if (e.KeyCode == Keys.Up)
+            {
+                T.turn();
+            }
+            else
+            {
+                return;
+            }
+
+            bool success = move(vertical, horizontal);
+            if (!success && e.KeyCode == Keys.Up)
+            {
+                T.rollback();
+            }  
+
         }
         private void gameOver()
         {
-            
+            if (Y < 0)
+            {
+                fallingTimer.Stop();
+                MessageBox.Show("Game Over");
+                Application.Restart();
+            }
         }
 
         private void fallingTimer_Tick(object sender, EventArgs e)
         {
-            int desc = 0;
-            fallingTick++;
-            desc++;
-            insertGrid(T,7,desc);
+            bool desc = move(vertical: 1);
+            if (!desc)
+            {
+                baseImage = new Bitmap(piece);
+                actualisation();
+                T = arrive();
+            }
 
+        }
+
+        private bool move(int vertical=0, int lateral=0)
+        {
+            int newX = X + lateral;
+            int newY = Y + vertical;
+            if(newX < 0 || newX + T.width > canvasWidth || newY + T.height > canvasHeight)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < T.width; i++)
+            {
+                for (int j = 0; j < T.height; j++)
+                {
+                    if (newY + j > 0 && area[newX + i, newY + j] == 1 && T.shape[j, i] == 1)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            X = newX;
+            Y = newY;
+            draw();
+            return true;
         }
     }
 }
