@@ -98,7 +98,7 @@ namespace TETRIS
                 {
                     if (T.shape[j, i] == 1)
                     {
-                        insert.FillRectangle(Brushes.Black, (X + i) * 25, (Y + j) * 25, 25, 25);
+                        insert.FillRectangle(T.brush, (X + i) * 25, (Y + j) * 25, 25, 25);
                     }
                 }
             }
@@ -237,7 +237,7 @@ namespace TETRIS
                 {
                     bases = Graphics.FromImage(baseImage);
                     bases.FillRectangle(
-                        area[i, j] == 1 ? Brushes.Black : Brushes.LightGray,
+                        area[i, j] == 1 ? T.brush : Brushes.LightGray,
                         i * 25, j * 25, 25, 25
                         );
                 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,8 @@ namespace TETRIS
                     {
                        { 1, 1 },
                        { 1, 1 }
-                    }
+                    },
+                    brush = Brushes.Yellow
                 },
 
                 new Tetrimino {
@@ -37,7 +39,8 @@ namespace TETRIS
                        { 1 },
                        { 1 },
                        { 1 }
-                    }
+                    },
+                    brush = Brushes.Cyan
                 },
 
                 new Tetrimino {
@@ -49,7 +52,8 @@ namespace TETRIS
                     {
                        { 0, 1, 1 },
                        { 1, 1, 0 },
-                    }
+                    },
+                    brush = Brushes.Red
                 },
 
                 new Tetrimino {
@@ -61,7 +65,8 @@ namespace TETRIS
                     {
                        { 1, 1, 0 },
                        { 0, 1, 1 },
-                    }
+                    },
+                    brush = Brushes.Green
                 },
 
                 new Tetrimino {
@@ -73,7 +78,8 @@ namespace TETRIS
                     {
                        { 1, 1, 1 },
                        { 1, 0, 0 },
-                    }
+                    },
+                    brush = Brushes.OrangeRed
                 },
 
                 new Tetrimino {
@@ -85,7 +91,8 @@ namespace TETRIS
                     {
                        { 1, 1, 1 },
                        { 0, 0, 1 },
-                    }
+                    },
+                    brush = Brushes.Blue
                 },
 
                 new Tetrimino {
@@ -97,7 +104,8 @@ namespace TETRIS
                     {
                        { 1, 1, 1 },
                        { 0, 1, 0 },
-                    }
+                    },
+                    brush = Brushes.Purple
                 },
 
             };
