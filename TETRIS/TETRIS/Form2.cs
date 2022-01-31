@@ -237,7 +237,7 @@ namespace TETRIS
                 {
                     bases = Graphics.FromImage(baseImage);
                     bases.FillRectangle(
-                        area[i, j] == 1 ? T.brush : Brushes.LightGray,
+                        area[i, j] == 1 ? Brushes.Transparent : Brushes.LightGray,
                         i * 25, j * 25, 25, 25
                         );
                 }
