@@ -28,6 +28,7 @@ namespace TETRIS
         private int[,] area;
         private int X;
         private int Y;
+        private int iscore;
 
         public Form2()
         {
@@ -38,14 +39,13 @@ namespace TETRIS
 
             label1.Text = "0 sec";
 
-
             pictureBox1.Width = 375;
             pictureBox1.Height = 500;//canvasHeight * 20;
             baseImage = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             bases = Graphics.FromImage(baseImage);
             bases.FillRectangle(Brushes.LightGray, 0, 0, baseImage.Width, baseImage.Height);
             pictureBox1.Image = baseImage;
-            area = new int [15, 20];
+            area = new int[15, 20];
             T = arrive();
             fallingTimer.Tick += fallingTimer_Tick;
             fallingTimer.Interval = 500;
@@ -96,7 +96,7 @@ namespace TETRIS
             {
                 for (int j = 0; j < T.height; j++)
                 {
-                    if(T.shape[j, i] == 1)
+                    if (T.shape[j, i] == 1)
                     {
                         insert.FillRectangle(Brushes.Black, (X + i) * 25, (Y + j) * 25, 25, 25);
                     }
@@ -114,7 +114,7 @@ namespace TETRIS
                     if (T.shape[j, i] == 1)
                     {
                         gameOver();
-                        area[X+i,Y+j] = 1;
+                        area[X + i, Y + j] = 1;
                     }
                 }
             }
@@ -128,7 +128,7 @@ namespace TETRIS
             {
                 horizontal--;
             }
-            else if(e.KeyCode == Keys.Right)
+            else if (e.KeyCode == Keys.Right)
             {
                 horizontal++;
             }
@@ -149,7 +149,7 @@ namespace TETRIS
             if (!success && e.KeyCode == Keys.Up)
             {
                 T.rollback();
-            }  
+            }
 
         }
         private void gameOver()
@@ -170,15 +170,17 @@ namespace TETRIS
                 baseImage = new Bitmap(piece);
                 actualisation();
                 T = arrive();
+                clearLine();
+
             }
 
         }
 
-        private bool move(int vertical=0, int lateral=0)
+        private bool move(int vertical = 0, int lateral = 0)
         {
             int newX = X + lateral;
             int newY = Y + vertical;
-            if(newX < 0 || newX + T.width > canvasWidth || newY + T.height > canvasHeight)
+            if (newX < 0 || newX + T.width > canvasWidth || newY + T.height > canvasHeight)
             {
                 return false;
             }
@@ -198,6 +200,50 @@ namespace TETRIS
             Y = newY;
             draw();
             return true;
+        }
+
+        private void clearLine()
+        {
+            for (int i = 0; i < canvasHeight; i++)
+            {
+                int j;
+                for (j = canvasWidth - 1; j >= 0; j--)
+                {
+                    if (area[j, i] == 0)
+                        break;
+                }
+
+                if (j == -1)
+                {
+                    iscore++;
+                    label2.Text = "Score = " + iscore / 10;
+                    fallingTimer.Interval -= 10;
+
+                    for (j = 0; j < canvasWidth; j++)
+                    {
+                        for (int k = i; k > 0; k--)
+                        {
+                            area[j, k] = area[j, k - 1];
+                        }
+
+                        area[j, 0] = 0;
+                    }
+                }
+            }
+
+            for (int i = 0; i < canvasWidth; i++)
+            {
+                for (int j = 0; j < canvasHeight; j++)
+                {
+                    bases = Graphics.FromImage(baseImage);
+                    bases.FillRectangle(
+                        area[i, j] == 1 ? Brushes.Black : Brushes.LightGray,
+                        i * 25, j * 25, 25, 25
+                        );
+                }
+            }
+
+            pictureBox1.Image = baseImage;
         }
     }
 }

@@ -34,6 +34,7 @@ namespace TETRIS
             this.aTimer = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.fallingTimer = new System.Windows.Forms.Timer(this.components);
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,11 +66,21 @@ namespace TETRIS
             // 
             this.fallingTimer.Tick += new System.EventHandler(this.fallingTimer_Tick);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(619, 98);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(43, 17);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "score";
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(782, 653);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Name = "Form2";
@@ -87,5 +98,6 @@ namespace TETRIS
         private System.Windows.Forms.Timer aTimer;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Timer fallingTimer;
+        private System.Windows.Forms.Label label2;
     }
 }
