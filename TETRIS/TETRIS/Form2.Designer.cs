@@ -35,7 +35,9 @@ namespace TETRIS
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.fallingTimer = new System.Windows.Forms.Timer(this.components);
             this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -75,11 +77,21 @@ namespace TETRIS
             this.label2.TabIndex = 2;
             this.label2.Text = "score";
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.pictureBox2.Location = new System.Drawing.Point(619, 161);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(149, 124);
+            this.pictureBox2.TabIndex = 3;
+            this.pictureBox2.TabStop = false;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(782, 653);
+            this.ClientSize = new System.Drawing.Size(832, 653);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
@@ -87,6 +99,7 @@ namespace TETRIS
             this.Text = "Form2";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form2_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -99,5 +112,6 @@ namespace TETRIS
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Timer fallingTimer;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }

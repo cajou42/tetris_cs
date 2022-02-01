@@ -29,6 +29,9 @@ namespace TETRIS
         private int X;
         private int Y;
         private int iscore;
+        private Bitmap nextImage;
+        private Graphics nextGraphics;
+        private Tetrimino nextT;
 
         public Form2()
         {
@@ -47,6 +50,7 @@ namespace TETRIS
             pictureBox1.Image = baseImage;
             area = new int[15, 20];
             T = arrive();
+            nextT = nextShape();
             fallingTimer.Tick += fallingTimer_Tick;
             fallingTimer.Interval = 500;
             fallingTimer.Start();
@@ -158,7 +162,7 @@ namespace TETRIS
             {
                 fallingTimer.Stop();
                 MessageBox.Show("Game Over");
-                Application.Restart();
+                Application.Restart();              
             }
         }
 
@@ -169,7 +173,8 @@ namespace TETRIS
             {
                 baseImage = new Bitmap(piece);
                 actualisation();
-                T = arrive();
+                T = nextT;
+                nextT = nextShape();
                 clearLine();
 
             }
@@ -245,5 +250,30 @@ namespace TETRIS
 
             pictureBox1.Image = baseImage;
         }
+
+        private Tetrimino nextShape()
+        {
+            Tetrimino next = arrive();
+            nextImage = new Bitmap(6 * 25, 6 * 25);
+            nextGraphics = Graphics.FromImage(nextImage);
+            nextGraphics.FillRectangle(Brushes.LightGray, 0, 0, nextImage.Width, nextImage.Height);
+            var startX = (6 - next.width) / 2;
+            var startY = (6 - next.height) / 2;
+
+            for (int i = 0; i < next.height; i++)
+            {
+                for (int j = 0; j < next.width; j++)
+                {
+                    nextGraphics.FillRectangle(
+                        next.shape[i, j] == 1 ? next.brush : Brushes.LightGray,
+                        (startX + j) * 25, (startY + i) * 25, 25, 25);
+                }
+            }
+
+            pictureBox2.Size = nextImage.Size;
+            pictureBox2.Image = nextImage;
+            return next;
+        }
+
     }
 }
