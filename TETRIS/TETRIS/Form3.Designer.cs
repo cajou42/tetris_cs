@@ -29,37 +29,45 @@ namespace TETRIS
         /// </summary>
         private void InitializeComponent()
         {
-            this.performanceCounter1 = new System.Diagnostics.PerformanceCounter();
-            this.insideOption = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.performanceCounter1)).BeginInit();
+            this.tuto = new System.Windows.Forms.Button();
+            this.back = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // insideOption
+            // tuto
             // 
-            this.insideOption.Location = new System.Drawing.Point(351, 197);
-            this.insideOption.Name = "insideOption";
-            this.insideOption.Size = new System.Drawing.Size(75, 23);
-            this.insideOption.TabIndex = 0;
-            this.insideOption.Text = "button1";
-            this.insideOption.UseVisualStyleBackColor = true;
-            this.insideOption.Click += new System.EventHandler(this.insideOption_Click);
+            this.tuto.Location = new System.Drawing.Point(355, 211);
+            this.tuto.Name = "tuto";
+            this.tuto.Size = new System.Drawing.Size(75, 23);
+            this.tuto.TabIndex = 0;
+            this.tuto.Text = "tuto";
+            this.tuto.UseVisualStyleBackColor = true;
+            this.tuto.Click += new System.EventHandler(this.tuto_Click);
+            // 
+            // back
+            // 
+            this.back.Location = new System.Drawing.Point(682, 396);
+            this.back.Name = "back";
+            this.back.Size = new System.Drawing.Size(75, 23);
+            this.back.TabIndex = 1;
+            this.back.Text = "back";
+            this.back.UseVisualStyleBackColor = true;
+            this.back.Click += new System.EventHandler(this.back_Click);
             // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.insideOption);
+            this.Controls.Add(this.back);
+            this.Controls.Add(this.tuto);
             this.Name = "Form3";
             this.Text = "Form3";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Diagnostics.PerformanceCounter performanceCounter1;
-        private System.Windows.Forms.Button insideOption;
+        private System.Windows.Forms.Button tuto;
+        private System.Windows.Forms.Button back;
     }
 }

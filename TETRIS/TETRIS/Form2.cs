@@ -221,7 +221,7 @@ namespace TETRIS
                 if (j == -1)
                 {
                     iscore++;
-                    label2.Text = "Score = " + iscore / 10;
+                    label2.Text = "Score = " + iscore;
                     fallingTimer.Interval -= 10;
 
                     for (j = 0; j < canvasWidth; j++)
