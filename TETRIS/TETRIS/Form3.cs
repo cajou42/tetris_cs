@@ -19,10 +19,10 @@ namespace TETRIS
             InitializeComponent();
             //MyProject.Computer.Audio.Play(test.My.Resources.TAMUSIQUEICI, AudioPlayMode.Background);
             //string filename = "Alarm09.wav";
-            //string path = Path.Combine(Environment.CurrentDirectory, @"music\", filename);
-            //SoundPlayer NOST = new SoundPlayer(path);
-            //NOST.Play();
-            //NOST.PlayLooping();
+            //string path = Path.Combine(Environment.CurrentDirectory, @"music\");
+            SoundPlayer NOST = new SoundPlayer(@"..\..\music\Tetris_theme.wav");
+            NOST.Play();
+            NOST.PlayLooping();
         }
 
         private void tuto_Click(object sender, EventArgs e)
