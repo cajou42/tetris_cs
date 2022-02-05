@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Timers;
+using System.Media;
 
 namespace TETRIS
 {
@@ -33,7 +34,7 @@ namespace TETRIS
         private Graphics nextGraphics;
         private Tetrimino nextT;
 
-        public Form2()
+        public Form2(string music)
         {
             InitializeComponent();
             //Timer
@@ -41,6 +42,10 @@ namespace TETRIS
             aTimer.Start();
 
             label1.Text = "0 sec";
+
+            SoundPlayer NOST = new SoundPlayer(@"..\..\music\" + music + ".wav");
+            NOST.Play();
+            NOST.PlayLooping();
 
             pictureBox1.Width = 375;
             pictureBox1.Height = 500;//canvasHeight * 20;
@@ -275,5 +280,9 @@ namespace TETRIS
             return next;
         }
 
+        private void Form2_Load(object sender, EventArgs e)
+        {
+                
+        }
     }
 }

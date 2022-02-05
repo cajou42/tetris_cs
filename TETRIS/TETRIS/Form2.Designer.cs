@@ -97,6 +97,7 @@ namespace TETRIS
             this.Controls.Add(this.label1);
             this.Name = "Form2";
             this.Text = "Form2";
+            this.Load += new System.EventHandler(this.Form2_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form2_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

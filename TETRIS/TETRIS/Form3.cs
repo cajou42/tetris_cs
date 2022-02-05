@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Media;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,15 +15,23 @@ namespace TETRIS
 {
     public partial class Form3 : Form
     {
+        private string[] tab = new string[] {"Tetris_theme", "Oceanic Breeze", "magical-girl", "hades-house-of-hades", "scattered-and-lost" };
+        public int click;
+        public string music = "Tetris_theme";
+        [DllImport("winmm.dll")]
+        public static extern int waveOutGetVolume(IntPtr hwo, out uint dwVolume);
+
+        [DllImport("winmm.dll")]
+        public static extern int waveOutSetVolume(IntPtr hwo, uint dwVolume);
         public Form3()
         {
-            InitializeComponent();
-            //MyProject.Computer.Audio.Play(test.My.Resources.TAMUSIQUEICI, AudioPlayMode.Background);
-            //string filename = "Alarm09.wav";
-            //string path = Path.Combine(Environment.CurrentDirectory, @"music\");
-            SoundPlayer NOST = new SoundPlayer(@"..\..\music\Tetris_theme.wav");
-            NOST.Play();
-            NOST.PlayLooping();
+            InitializeComponent();       
+            info.Text = tab[0];
+            label2.Text = "composer : Hirokazu Tanaka \n from : Tetris gameBoy";
+            uint CurrVol = 0;
+            waveOutGetVolume(IntPtr.Zero, out CurrVol);
+            ushort CalcVol = (ushort)(CurrVol & 0x0000ffff);
+            trackBar1.Value = CalcVol / (ushort.MaxValue / 10);
         }
 
         private void tuto_Click(object sender, EventArgs e)
@@ -37,9 +46,50 @@ namespace TETRIS
 
         private void back_Click(object sender, EventArgs e)
         {
-            Form1 obj1 = new Form1();
+            Form1 obj1 = new Form1(music);
             obj1.Show();
             this.Hide();
+        }
+
+        private void changeMusic_Click(object sender, EventArgs e)
+        {
+            click++;
+            if (click == tab.Length)
+            {
+                click = 0;
+            }
+            info.Text = tab[click];
+            music = tab[click];
+            switch (click)
+            {
+                case 0:
+                    label2.Text = "composer : Hirokazu Tanaka \n from : Tetris gameBoy";
+                    break;
+                case 1:
+                    label2.Text = "composer : flashygoodness \n cover : PrototypeRaptor - OC ReMix \n remix from : fraymaker \n originaly from : Rivals of Aether";
+                    break;
+                case 2:
+                    label2.Text = "composer : Guitar Vader \n from : Jet Set Radio";
+                    break;
+                case 3:
+                    label2.Text = "composer : Darren Korb \n from : Hades";
+                    break;
+                case 4:
+                    label2.Text = "composer : Lena Raine \n from : celeste";
+                    break;
+            }
+        }
+
+        private void info_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            int NewVolume = ((ushort.MaxValue / 10) * trackBar1.Value);
+            uint NewVolumeAllChannels = (((uint)NewVolume & 0x0000ffff) | ((uint)NewVolume << 16));
+            waveOutSetVolume(IntPtr.Zero, NewVolumeAllChannels);
         }
     }
 }

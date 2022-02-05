@@ -10,11 +10,23 @@ using System.Windows.Forms;
 
 namespace TETRIS
 {
+    
     public partial class Form1 : Form
     {
-        public Form1()
+        string music1;
+        public Form1(string music)
         {
             InitializeComponent();
+            this.BackgroundImage = Properties.Resources.back;
+            if(music == "") {
+                music1 = "Tetris_theme";
+            }
+            else
+            {
+                music1 = music;
+            }
+            pictureBox1.Image = Properties.Resources.logo;
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -26,7 +38,7 @@ namespace TETRIS
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form2 obj1 = new Form2();
+            Form2 obj1 = new Form2(music1);
             obj1.Show();
             this.Hide();
         }
