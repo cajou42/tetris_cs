@@ -25,8 +25,6 @@ namespace TETRIS
             {
                 music1 = music;
             }
-            pictureBox1.Image = Properties.Resources.logo;
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         private void button2_Click(object sender, EventArgs e)
