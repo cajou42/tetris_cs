@@ -33,6 +33,7 @@ namespace TETRIS
         private Bitmap nextImage;
         private Graphics nextGraphics;
         private Tetrimino nextT;
+        SoundPlayer NOST;
 
         public Form2(string music)
         {
@@ -43,7 +44,7 @@ namespace TETRIS
 
             label1.Text = "0 sec";
 
-            SoundPlayer NOST = new SoundPlayer(@"..\..\music\" + music + ".wav");
+            NOST = new SoundPlayer(@"..\..\music\" + music + ".wav");
             NOST.Play();
             NOST.PlayLooping();
 
@@ -166,6 +167,7 @@ namespace TETRIS
             if (Y < 0)
             {
                 fallingTimer.Stop();
+                NOST.Stop();
                 MessageBox.Show("Game Over");
                 Application.Restart();              
             }

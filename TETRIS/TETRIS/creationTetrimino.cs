@@ -114,7 +114,7 @@ namespace TETRIS
         public Tetrimino randomShape()
         {
            var rand = new Random();
-            int choose = rand.Next(0, 6);
+            int choose = rand.Next(0, 7);
             return arr[choose];
         }
     }
