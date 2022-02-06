@@ -168,7 +168,7 @@ namespace TETRIS
             {
                 fallingTimer.Stop();
                 NOST.Stop();
-                MessageBox.Show("Game Over");
+                MessageBox.Show($"Game Over \n your score is {iscore}");
                 Application.Restart();              
             }
         }
