@@ -1,0 +1,1 @@
+to lauch the game go execute the file TETRIS.exe in  tetris_cs\TETRIS\TETRIS\bin\Debug\TETRIS.exe
